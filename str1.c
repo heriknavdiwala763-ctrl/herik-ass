@@ -8,12 +8,9 @@ struct time_struct
 int main()
 {
     struct time_struct s;
-    printf("enter hour:: ");
-    scanf("%d",&s.hour);
-    printf("enter minute:: ");
-    scanf("%d",&s.minute);
-    printf("enter second:: ");
-    scanf("%d",&s.second);
+    s.hour=12;
+    s.minute=30;
+    s.second=45;
     printf("time is %d:%d:%d",s.hour,s.minute,s.second);
     return 0;
 }
