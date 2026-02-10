@@ -1,35 +1,63 @@
-#include<stdio.h>
+#include <stdio.h>
+
 struct metric
 {
     int metre;
-    float centimetre;
-};
-struct british
+    int centimetre;
+} m;
+
+struct British
 {
     int feet;
-    float inches;
-};
+    int inch;
+} b;
+
+void add_into_metric(struct metric m, struct British b)
+{
+    int total_cm;
+
+    total_cm = (m.metre * 100) + m.centimetre;
+    total_cm += (b.feet * 30.48) + (b.inch * 2.54);
+
+    m.metre = total_cm / 100;
+    m.centimetre = total_cm % 100;
+
+    printf("Result in Metric System:\n");
+    printf("%d metres %d centimetres\n", m.metre, m.centimetre);
+}
+
+void add_into_british(struct metric m, struct British b)
+{
+    float total_inches;
+
+    total_inches = (m.metre * 100 + m.centimetre) / 2.54;
+    total_inches += (b.feet * 12) + b.inch;
+
+    b.feet = total_inches / 12;
+    b.inch = (int)total_inches % 12;
+
+    printf("Result in British System:\n");
+    printf("%d feet %d inches\n", b.feet, b.inch);
+}
+
 int main()
 {
-    struct metric m1;
-    struct british b1;
-    float total_inches;
-    int result_feet;
-    float result_inches;
-    printf("Enter distance in metric system: ");
-    printf("\nMetres: ");
-    scanf("%d",&m1.metre);
-    printf("Centimetres: ");
-    scanf("%f",&m1.centimetre);
-    printf("\nEnter distance in british system: ");
-    printf("\nFeet: ");
-    scanf("%d",&b1.feet);
-    printf("Inches: ");
-    scanf("%f",&b1.inches);
-    total_inches=(m1.metre*39.37)+(m1.centimetre*0.3937);
-    total_inches=total_inches+(b1.feet*12)+b1.inches;
-    result_feet=total_inches/12;
-    result_inches=total_inches-(result_feet*12);
-    printf("\ntotal distance=%d feet %.2f inches",result_feet,result_inches);
+    int choice;
+
+    printf("Enter metric distance (metres & centimetres): ");
+    scanf("%d %d", &m.metre, &m.centimetre);
+
+    printf("Enter british distance (feet & inches): ");
+    scanf("%d %d", &b.feet, &b.inch);
+
+    printf("Display result in:\n");
+    printf("1. Metric system\n");
+    printf("2. British system\n");
+    scanf("%d", &choice);
+
+    if (choice == 1)
+        add_into_metric(m, b);
+    else
+        add_into_british(m, b);
     return 0;
 }
